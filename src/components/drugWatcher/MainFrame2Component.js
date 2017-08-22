@@ -1,25 +1,49 @@
 'use strict';
 
 import React from 'react';
-import DrugList from './DrugListComponent';
+import DrugList from './DrugList2Component';
 //require('styles/drugWatcher/DrugList.css');
 require('styles/drugWatcher/MainFrame2.css');
 
+
 class MainFrameComponent extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {subPage: 'home'};
+	}
+	
+	handleClick(e, pageStr) {
+    e.preventDefault();
+	this.setState({
+						subPage : pageStr
+					});
+    console.log('The link was clicked.');
+  }
+	
   render() {
+	  let subPage = this.state.subPage;
+	  let subPageObj=null;
+	  if(subPage=='home'){
+		  subPageObj = <DrugList/>;
+	  }else if(subPage=='about'){
+		  subPageObj = <h1>about page</h1>;
+	  }else if(subPage=='contact'){
+		  subPageObj = <h1>contact page</h1>;
+	  }
+	  
     return (
       <div className="container">
       <div className="header clearfix">
         <nav>
           <ul className="nav nav-pills float-right">
             <li className="nav-item">
-              <a className="nav-link active" href="#">Home <span className="sr-only">(current)</span></a>
+              <a className={`nav-link ${this.state.subPage=='home'?'active':''}`} href="#" onClick={(e)=> this.handleClick(e,'home')}>Home</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">About</a>
+              <a className={`nav-link ${this.state.subPage=='about'?'active':''}`} href="#" onClick={(e)=> this.handleClick(e,'about')}>About</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Contact</a>
+              <a className={`nav-link ${this.state.subPage=='contact'?'active':''}`} href="#" onClick={(e)=> this.handleClick(e,'contact')}>Contact</a>
             </li>
           </ul>
         </nav>
@@ -27,31 +51,7 @@ class MainFrameComponent extends React.Component {
       </div>
 
       <div className="jumbotron">
-		<DrugList/>
-      </div>
-
-      <div className="row marketing">
-        <div className="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div className="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
+	  {subPageObj}
       </div>
 
       <footer className="footer">

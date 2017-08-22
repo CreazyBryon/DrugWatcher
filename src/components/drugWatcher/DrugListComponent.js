@@ -46,7 +46,7 @@ class DrugListComponent extends React.Component {
         //对于post，put，delete等方法同理
         //而很显然，假如你的数据没有必要从数据库中提取，或者长期不变，也不怕泄密
         //那你完全可以在此请求一个json文件
-        xhr.open('GET', 'http://localhost:3000/drug', true)
+        xhr.open('GET', 'http://localhost:3000/api/drug/list', true)
         //根据情况选择是否要随get请求发送用于身份认证的信息
         xhr.withCredentials = true
         xhr.send()
